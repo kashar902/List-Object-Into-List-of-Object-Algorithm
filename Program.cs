@@ -1,113 +1,42 @@
-﻿
-public class CarServices
-{
-    public int ServiceId { get; set; }
-    public int ServiceTypeId { get; set; }
-    public string? ServiceName { get; set; }
-    public List<SubServices?>? listSubServiceName { get; set; }
-}
-
-public class SubServices
-{
-    public int SubServiceId { get; set; }
-    public string? SubServiceName { get; set; }
-}
-
-public class NewCarService
-{
-    public int ServiceId { get; set; }
-    public int ServiceTypeId { get; set; }
-    public string? ServiceName { get; set; }
-    public int SubServiceId { get; set; }
-    public string? SubServiceName { get; set; }
-}
+﻿using Algorithms.YeildReturnConcept;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        List<NewCarService> carServiceDataList = new();
-        List<CarServices> carServicesList = new();
-
-        foreach (var carServiceData in carServiceDataList)
+        YeildReturn yeildReturn = new();
+        foreach (int item in yeildReturn.ProduceEvenNumbers(27))
         {
-            var existingCarService = carServicesList
-                .FirstOrDefault(x =>
-                    x.ServiceId == carServiceData.ServiceId &&
-                    x.ServiceTypeId == carServiceData.ServiceTypeId &&
-                    x.ServiceName == carServiceData.ServiceName
-                );
-
-            if (existingCarService == null)
-            {
-                carServicesList.Add(new CarServices
-                {
-                    ServiceId = carServiceData.ServiceId,
-                    ServiceTypeId = carServiceData.ServiceTypeId,
-                    ServiceName = carServiceData.ServiceName,
-                    listSubServiceName = new List<SubServices?>()
-                });
-
-            }
+            Console.WriteLine(item);
         }
-        foreach (var item in carServiceDataList)
-        {
-            foreach (var subServiceName in carServicesList)
-            {
-                if (subServiceName.ServiceId.Equals(item.ServiceId))
-                {
-                    subServiceName.listSubServiceName?.Add(new SubServices
-                    {
-                        SubServiceId = item.SubServiceId,
-                        SubServiceName = item.SubServiceName
-                    });
-                }
-            }
-        }
-        #region Old Version Error In Condition
+        #region List Of Object
+        //List<NewCarService> dummyData = GenerateDummyData(50);
 
-        //List<NewCarService> carServiceDataList = new();
-        //List<CarServices> carServicesList = new();
-
-        //foreach (var carServiceData in carServiceDataList)
+        //static List<NewCarService> GenerateDummyData(int count)
         //{
-        //    var existingCarService = carServicesList
-        //        .FirstOrDefault(x =>
-        //            x.ServiceId == carServiceData.ServiceId &&
-        //            x.ServiceTypeId == carServiceData.ServiceTypeId &&
-        //            x.ServiceName == carServiceData.ServiceName
-        //            );
+        //    List<NewCarService> data = new();
 
-        //    if (existingCarService == null)
+        //    for (int i = 1; i <= count; i++)
         //    {
-        //        carServicesList.Add(new CarServices
-        //        {
-        //            ServiceId = carServiceData.ServiceId,
-        //            ServiceTypeId = carServiceData.ServiceTypeId,
-        //            ServiceName = carServiceData.ServiceName,
-        //            listSubServiceName = new List<SubServices?>()
-        //        });
-        //    }
-        //}
+        //        var serviceId = 1; // Set ServiceId to the same value for all records
+        //        var subServiceId = i % 5 == 0 ? null : (int?)i; // Repeat SubServiceId every 5 records
 
-        //foreach (var carServiceData in carServiceDataList)
-        //{
-        //    var carService = carServicesList
-        //        .FirstOrDefault(x =>
-        //            x.ServiceId == carServiceData.SubServiceId);
-
-        //    if (carService != null)
-        //    {
-        //        foreach (var subServiceName in carServiceDataList)
+        //        var newCarService = new NewCarService
         //        {
-        //            carService.listSubServiceName?.Add(new SubServices
-        //            {
-        //                SubServiceId = subServiceName.SubServiceId,
-        //                SubServiceName = subServiceName.SubServiceName
-        //            });
-        //        }
+        //            ServiceId = serviceId,
+        //            ServiceTypeId = 100 + i, // Just an example value
+        //            ServiceName = $"Service {serviceId}",
+        //            SubServiceId = subServiceId,
+        //            SubServiceName = subServiceId != null ? $"SubService {subServiceId}" : null
+        //        };
+
+        //        data.Add(newCarService);
         //    }
+
+        //    return data;
         //}
+        //Version2 version2 = new();
+        //version2.Version_02(dummyData);
         #endregion
 
     }
